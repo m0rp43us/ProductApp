@@ -1,0 +1,34 @@
+<ng-container *ngIf="data; else loading">
+<h3>{{title}}</h3>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" [ngClass]="{'active': crudType == 'sample' }" href="" (click)="crudType = 'sample'">Simple Crud</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" [ngClass]="{'active': crudType == 'upload' }" href="" (click)="crudType = 'upload'">Importer un fichier</a>
+  </li>
+</ul>
+<div class="container" [ngStyle]="{'margin-top': '20px'}">
+  <div *ngIf="crudType == 'sample'">
+    <app-sample
+    [title]="title"
+    [data]="data"
+    [service]="service"
+    [initItem]="initItem"
+    [initForm]="initForm"
+    [dataModelList]="dataModelList"
+    ></app-sample>
+  </div>
+  <div *ngIf="crudType == 'upload'">
+    <app-upload
+      [dataModelList]="dataModelList"
+      [service]="service"
+      (updateData)="dataChanged($event)"
+    ></app-upload>
+  </div>
+</div>
+</ng-container>
+
+<ng-template #loading>
+  Loading ....
+</ng-template>
